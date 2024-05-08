@@ -34,8 +34,8 @@ public class RobotContainer {
   
   private final Joystick driver = new Joystick(InputConstants.kDriverControllerPort);
   private final JoystickButton resetGyroButton = new JoystickButton(driver, DriverConstants.resetGyroButton);
-  private final JoystickButton autoAimButton = new JoystickButton(driver, DriverConstants.autoAimButton);
-  private final JoystickButton resetAtPointButton = new JoystickButton(driver, DriverConstants.resetAtPointButton);
+ // private final JoystickButton autoAimButton = new JoystickButton(driver, DriverConstants.autoAimButton);
+ // private final JoystickButton resetAtPointButton = new JoystickButton(driver, DriverConstants.resetAtPointButton);
   private final JoystickButton shellyButton = new JoystickButton(driver, DriverConstants.shellyButton);
   private final JoystickButton ampScoreButton = new JoystickButton(driver, DriverConstants.ampScoreButton);
 
@@ -55,8 +55,8 @@ public class RobotContainer {
     
     resetGyroButton.onTrue(subsystemManager.makeResetCommand());
     resetGyroButton.onFalse(subsystemManager.makeResetCommand());
-    resetAtPointButton.onTrue(subsystemManager.resetAtPose2d(new Pose2d(15.1968, 5.5, Rotation2d.fromDegrees(0))));
-    autoAimButton.whileTrue(subsystemManager.makeAutoAimCommand(driverLeftY, driverLeftX, driverRightX));
+  // resetAtPointButton.onTrue(subsystemManager.resetAtPose2d(new Pose2d(15.1968, 5.5, Rotation2d.fromDegrees(0))));
+  //  autoAimButton.whileTrue(subsystemManager.makeAutoAimCommand(driverLeftY, driverLeftX, driverRightX));
     shellyButton.whileTrue(subsystemManager.makeShellyCommand(driverLeftY, driverLeftX, driverRightX));
     ampScoreButton.onTrue(subsystemManager.makeAmpSequence());
     ampScoreButton.onFalse(new InstantCommand(() -> subsystemManager.stow()));
@@ -69,7 +69,7 @@ public class RobotContainer {
   private void configureXboxOperatorBindings() {
     xboxOperator.x().onTrue(subsystemManager.makeAmpSetupCommand());
     xboxOperator.x().onFalse(subsystemManager.makeAmpFinishCommand());
-    xboxOperator.y().whileTrue(subsystemManager.makeSubwooferShootCommand());
+   // xboxOperator.y().whileTrue(subsystemManager.makeSubwooferShootCommand());
     xboxOperator.b().onTrue(subsystemManager.makeSpitOutCommand(driverLeftY, driverLeftX, driverRightX));
     xboxOperator.a().whileTrue(subsystemManager.makeElevatorCommand(ElevatorPresets.STOW));
 
@@ -85,7 +85,7 @@ public class RobotContainer {
     xboxOperator.leftTrigger(0.1).whileTrue(subsystemManager.makeAutoIntakeCommand()); // left trigger
     xboxOperator.leftTrigger(0.1).onFalse(subsystemManager.makeIntakeBackupCommand());
     xboxOperator.rightBumper().whileTrue(subsystemManager.makeManualIntakeEjectCommand()); // right bumper
-    xboxOperator.rightTrigger(0.1).whileTrue(subsystemManager.makeShootCommand()); // right trigger
+   // xboxOperator.rightTrigger(0.1).whileTrue(subsystemManager.makeShootCommand()); // right trigger
     
   }
 
@@ -93,8 +93,8 @@ public class RobotContainer {
     ps5Operator.square().onTrue(subsystemManager.makeAmpSetupCommand()); // x
     ps5Operator.square().onFalse(subsystemManager.makeAmpFinishCommand());
 
-    ps5Operator.triangle().onTrue(subsystemManager.makeSubwooferRevCommand()); // y
-    ps5Operator.triangle().onFalse(subsystemManager.makeShootCommand().onlyIf(ps5Operator.touchpad().negate())); // y
+   // ps5Operator.triangle().onTrue(subsystemManager.makeSubwooferRevCommand()); // y
+   // ps5Operator.triangle().onFalse(subsystemManager.makeShootCommand().onlyIf(ps5Operator.touchpad().negate())); // y
 
     ps5Operator.circle().onTrue(subsystemManager.makeSpitOutCommand(driverLeftY, driverLeftX, driverRightX)); // b
     ps5Operator.cross().whileTrue(subsystemManager.makeElevatorCommand(ElevatorPresets.STOW)); // a
@@ -111,7 +111,7 @@ public class RobotContainer {
     ps5Operator.L2().whileTrue(subsystemManager.makeAutoIntakeCommand()); // left trigger
     ps5Operator.L2().onFalse(subsystemManager.makeIntakeBackupCommand());
     ps5Operator.R1().whileTrue(subsystemManager.makeManualIntakeEjectCommand()); // left bumper
-    ps5Operator.R2().whileTrue(subsystemManager.makeShootCommand()); // right trigger
+  //  ps5Operator.R2().whileTrue(subsystemManager.makeShootCommand()); // right trigger
 
   }
 

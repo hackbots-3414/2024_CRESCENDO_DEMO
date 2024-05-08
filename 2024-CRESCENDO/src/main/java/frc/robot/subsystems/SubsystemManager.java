@@ -144,8 +144,8 @@ public class SubsystemManager extends SubsystemBase {
             aprilTagVision.setDataInterfaces(drivetrain::addVisionData);
         }
 
-		shooter.setDefaultCommand(new ShooterFlywheelCommand(shooter, transport));
-		shooterPivot.setDefaultCommand(new AimPresetCommand(shooterPivot, transport, allianceSupplier, this::getAimOutputContainer));
+		// shooter.setDefaultCommand(new ShooterFlywheelCommand(shooter, transport));
+		// shooterPivot.setDefaultCommand(new AimPresetCommand(shooterPivot, transport, allianceSupplier, this::getAimOutputContainer));
 
 		SmartDashboard.putNumber("Shooter Angle?", 0.0);
 		SmartDashboard.putData("Set Shooter Angle", new InstantCommand(this::customShoot));

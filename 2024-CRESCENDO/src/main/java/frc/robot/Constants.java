@@ -40,10 +40,10 @@ public class Constants {
                                                                    // brownouts on 3/23
                                                                    // changed to 70 on 4/4
 
-        public static final double maxDriveAcceleration = 4;
-        public static final double maxAngleAcceleration = 2 * Math.PI;
-        public static final double maxDriveVelocity = TunerConstants.kSpeedAt12VoltsMps;
-        public static final double maxAngleVelocity = 1.5 * Math.PI;
+        public static final double maxDriveAcceleration = 1;
+        public static final double maxAngleAcceleration = 0.5 * Math.PI;
+        public static final double maxDriveVelocity = TunerConstants.kSpeedAt12VoltsMps * 0.25;
+        public static final double maxAngleVelocity = Math.PI * 0.375;
         public static final double shellyDriveVelocity = maxDriveVelocity * 0.25;
         public static final double shellyAngleVelocity = maxAngleVelocity * 0.50;
 
@@ -61,7 +61,7 @@ public class Constants {
 
     public static final class VisionConstants {
 
-        public static final boolean USE_VISION = true; // Vision enabled or not
+        public static final boolean USE_VISION = false; // Vision enabled or not
 
         /*
          * A note about these transforms: They appear to follow the normal cordinate
@@ -135,7 +135,7 @@ public class Constants {
 
         public static final double warmUpSpeed = 0.25; // duty cycle (0-1)
 
-        public static final double spitOutSpeed = 0.6; // % out of 1
+        public static final double spitOutSpeed = 0.2; // % out of 1
         public static final double shooterEjectSpeed = 0.1; // % out of 1
         public static final double maxSpeed = 80; // rps
         public static final double subwooferVelocity = 60; // normal full speed
