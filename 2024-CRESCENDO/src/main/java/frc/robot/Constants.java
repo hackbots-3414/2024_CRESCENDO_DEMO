@@ -136,9 +136,9 @@ public class Constants {
         public static final double warmUpSpeed = 0.25; // duty cycle (0-1)
 
         public static final double spitOutSpeed = 0.2; // % out of 1
-        public static final double shooterEjectSpeed = 0.1; // % out of 1
-        public static final double maxSpeed = 80; // rps
-        public static final double subwooferVelocity = 60; // normal full speed
+        public static final double shooterEjectSpeed = 0.1; // % out of 1 
+        public static final double maxSpeed = 25; // rps 80 is normal
+        public static final double subwooferVelocity = 25; // normal full speed 60 is normal
 
         public static final Map<Double, Double> rotationLookupTable = Map.ofEntries(
                 entry(0.0, 0.088),

@@ -34,6 +34,7 @@ public class IntakeBackupCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     transport.stopMotor();
+    shooter.stopMotor();
   }
 
   // Returns true when the command should end.

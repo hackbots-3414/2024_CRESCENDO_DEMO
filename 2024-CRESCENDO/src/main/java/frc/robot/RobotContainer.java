@@ -96,7 +96,7 @@ public class RobotContainer {
    // ps5Operator.triangle().onTrue(subsystemManager.makeSubwooferRevCommand()); // y
    // ps5Operator.triangle().onFalse(subsystemManager.makeShootCommand().onlyIf(ps5Operator.touchpad().negate())); // y
 
-    ps5Operator.circle().onTrue(subsystemManager.makeSpitOutCommand(driverLeftY, driverLeftX, driverRightX)); // b
+   // ps5Operator.circle().onTrue(subsystemManager.makeSpitOutCommand(driverLeftY, driverLeftX, driverRightX)); // b
     ps5Operator.cross().whileTrue(subsystemManager.makeElevatorCommand(ElevatorPresets.STOW)); // a
     
     ps5Operator.povUp().whileTrue(subsystemManager.makeManualElevatorCommand(true));
@@ -104,8 +104,8 @@ public class RobotContainer {
     ps5Operator.povRight().whileTrue(subsystemManager.makeManualPivotCommand(true));
     ps5Operator.povLeft().whileTrue(subsystemManager.makeManualPivotCommand(false));
 
-    ps5Operator.create().whileTrue(subsystemManager.makeManualWinchCommand(false)); // back 
-    ps5Operator.options().whileTrue(subsystemManager.makeManualWinchCommand(true)); // stard
+    // ps5Operator.create().whileTrue(subsystemManager.makeManualWinchCommand(false)); // back 
+    // ps5Operator.options().whileTrue(subsystemManager.makeManualWinchCommand(true)); // stard
 
     ps5Operator.L1().whileTrue(subsystemManager.makeSpitOutFlatCommand());
     ps5Operator.L2().whileTrue(subsystemManager.makeAutoIntakeCommand()); // left trigger
