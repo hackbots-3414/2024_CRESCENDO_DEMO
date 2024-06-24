@@ -66,6 +66,15 @@ public class RobotContainer {
     subsystemManager.telemeterize();
   }
 
+  private void configurePS5DriverBindings() {
+    subsystemManager.configureDriveDefaults(() -> ps5Operator.getLeftY(), () -> ps5Operator.getLeftX(), () ->ps5Operator.getRightX());
+    
+    ps5Operator.touchpad().onTrue(subsystemManager.makeResetCommand());
+    
+    if (Utils.isSimulation()) {subsystemManager.resetAtPose2d(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));}
+    subsystemManager.telemeterize();
+  }
+
   private void configureXboxOperatorBindings() {
     xboxOperator.x().onTrue(subsystemManager.makeAmpSetupCommand());
     xboxOperator.x().onFalse(subsystemManager.makeAmpFinishCommand());
@@ -116,12 +125,16 @@ public class RobotContainer {
   }
 
   private RobotContainer() {
-    configureDriverBindings();
-
     if (DriverConstants.operatorController == JoystickChoice.PS5) {
       configurePS5OperatorBindings();
     } else {
       configureXboxOperatorBindings();
+    }
+
+    if (DriverConstants.numControllers == 1) {
+      configurePS5DriverBindings();
+    } else {
+      configureDriverBindings();
     }
 
     pathChooser = AutoBuilder.buildAutoChooser();

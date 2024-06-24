@@ -216,6 +216,9 @@ public class Constants {
         public static final double expoPower = 2.0;
 
         public static final JoystickChoice operatorController = JoystickChoice.PS5;
+
+        public static final double numControllers = 2;
+
         public static final AutonViews autonView = AutonViews.AMP;
     }
 
