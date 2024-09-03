@@ -40,6 +40,7 @@ public class AutoIntakeCommand extends Command {
 
   @Override
   public void execute() {
+    System.out.println("autointake");
     if (elevator.isAtSetpoint() && pivot.isAtSetpoint()) {
       if (!alreadyStarted) {
         intake.setFast();
