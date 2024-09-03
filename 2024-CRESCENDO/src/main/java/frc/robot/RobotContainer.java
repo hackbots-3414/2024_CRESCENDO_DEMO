@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriverConstants;
 import frc.robot.Constants.InputConstants;
 import frc.robot.commands.BaseSubsystemCommands.ElevatorCommand.ElevatorPresets;
@@ -33,20 +35,27 @@ public class RobotContainer {
   public enum AutonViews {SOURCE, AMP, CENTER, DEBUG}
   
   private final Joystick driver = new Joystick(InputConstants.kDriverControllerPort);
-  private final JoystickButton resetGyroButton = new JoystickButton(driver, DriverConstants.resetGyroButton);
  // private final JoystickButton autoAimButton = new JoystickButton(driver, DriverConstants.autoAimButton);
  // private final JoystickButton resetAtPointButton = new JoystickButton(driver, DriverConstants.resetAtPointButton);
   private final JoystickButton shellyButton = new JoystickButton(driver, DriverConstants.shellyButton);
   private final JoystickButton ampScoreButton = new JoystickButton(driver, DriverConstants.ampScoreButton);
 
-  private final Supplier<Double> driverLeftX = () -> Math.pow(MathUtil.applyDeadband(driver.getRawAxis(DriverConstants.leftX),DriverConstants.deadband)/DriverConstants.leftXMax, DriverConstants.expoPower) * (driver.getRawAxis(DriverConstants.leftX) >= 0.0 ? 1.0 : -1.0);
-  private final Supplier<Double> driverLeftY = () -> -Math.pow(MathUtil.applyDeadband(driver.getRawAxis(DriverConstants.leftY), DriverConstants.deadband)/DriverConstants.leftYMax, DriverConstants.expoPower) * (driver.getRawAxis(DriverConstants.leftY) >= 0.0 ? 1.0 : -1.0);
-  private final Supplier<Double> driverRightX = () -> Math.pow(MathUtil.applyDeadband(driver.getRawAxis(DriverConstants.rightX), DriverConstants.deadband)/DriverConstants.rightXMax,DriverConstants.expoPower) * (driver.getRawAxis(DriverConstants.rightX) >= 0.0 ? 1.0 : -1.0);
-  // private final Supplier<Double> driverRightY = () -> driver.getRawAxis(DriverConstants.rightY)/DriverConstants.rightYMax;
   
   private final CommandXboxController xboxOperator = new CommandXboxController(InputConstants.kOperatorControllerPort);
   private final CommandPS5Controller ps5Operator = new CommandPS5Controller(InputConstants.kOperatorControllerPort);
 
+  private final Trigger resetGyroButton = ps5Operator.triangle();
+
+
+  private final Supplier<Double> rawLeftXAxis = () -> ps5Operator.getLeftX();
+  private final Supplier<Double> rawLeftYAxis = () -> -ps5Operator.getLeftY();
+  private final Supplier<Double> rawRightXAxis = () -> ps5Operator.getRightX();
+
+  private final Supplier<Double> driverLeftX = () -> Math.pow(MathUtil.applyDeadband(rawLeftXAxis.get(),DriverConstants.deadband)/DriverConstants.leftXMax, DriverConstants.expoPower) * (rawLeftXAxis.get() >= 0.0 ? 1.0 : -1.0);
+  private final Supplier<Double> driverLeftY = () -> -Math.pow(MathUtil.applyDeadband(rawLeftYAxis.get(), DriverConstants.deadband)/DriverConstants.leftYMax, DriverConstants.expoPower) * (rawLeftYAxis.get() >= 0.0 ? 1.0 : -1.0);
+  private final Supplier<Double> driverRightX = () -> Math.pow(MathUtil.applyDeadband(rawRightXAxis.get(), DriverConstants.deadband)/DriverConstants.rightXMax,DriverConstants.expoPower) * (rawRightXAxis.get() >= 0.0 ? 1.0 : -1.0);
+  // private final Supplier<Double> driverRightY = () -> driver.getRawAxis(DriverConstants.rightY)/DriverConstants.rightYMax;
+  
   SendableChooser<Command> pathChooser = new SendableChooser<>();
   private SubsystemManager subsystemManager = SubsystemManager.getInstance();
   
@@ -54,7 +63,6 @@ public class RobotContainer {
     subsystemManager.configureDriveDefaults(driverLeftY, driverLeftX, driverRightX);
     
     resetGyroButton.onTrue(subsystemManager.makeResetCommand());
-    resetGyroButton.onFalse(subsystemManager.makeResetCommand());
   // resetAtPointButton.onTrue(subsystemManager.resetAtPose2d(new Pose2d(15.1968, 5.5, Rotation2d.fromDegrees(0))));
   //  autoAimButton.whileTrue(subsystemManager.makeAutoAimCommand(driverLeftY, driverLeftX, driverRightX));
     shellyButton.whileTrue(subsystemManager.makeShellyCommand(driverLeftY, driverLeftX, driverRightX));
@@ -117,7 +125,7 @@ public class RobotContainer {
     // ps5Operator.options().whileTrue(subsystemManager.makeManualWinchCommand(true)); // stard
 
     ps5Operator.L1().whileTrue(subsystemManager.makeSpitOutFlatCommand());
-    ps5Operator.L2().whileTrue(subsystemManager.makeAutoIntakeCommand()); // left trigger
+    ps5Operator.R2().whileTrue(subsystemManager.makeAutoIntakeCommand()); // left trigger
     ps5Operator.L2().onFalse(subsystemManager.makeIntakeBackupCommand());
     ps5Operator.R1().whileTrue(subsystemManager.makeManualIntakeEjectCommand()); // left bumper
   //  ps5Operator.R2().whileTrue(subsystemManager.makeShootCommand()); // right trigger
