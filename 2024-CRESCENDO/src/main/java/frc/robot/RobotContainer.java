@@ -125,9 +125,9 @@ public class RobotContainer {
     // ps5Operator.options().whileTrue(subsystemManager.makeManualWinchCommand(true)); // stard
 
     ps5Operator.L1().whileTrue(subsystemManager.makeSpitOutFlatCommand());
-    ps5Operator.R2().whileTrue(subsystemManager.makeAutoIntakeCommand()); // left trigger
-    ps5Operator.L2().onFalse(subsystemManager.makeIntakeBackupCommand());
+    ps5Operator.L2().whileTrue(subsystemManager.makeAutoIntakeCommand()); // left trigger
     ps5Operator.R1().whileTrue(subsystemManager.makeManualIntakeEjectCommand()); // left bumper
+    ps5Operator.R2().whileTrue(subsystemManager.makeReverseIntakeCommand());
   //  ps5Operator.R2().whileTrue(subsystemManager.makeShootCommand()); // right trigger
 
   }

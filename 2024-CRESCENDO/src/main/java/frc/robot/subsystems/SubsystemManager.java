@@ -39,6 +39,7 @@ import frc.robot.commands.BaseSubsystemCommands.ElevatorCommand;
 import frc.robot.commands.BaseSubsystemCommands.ElevatorCommand.ElevatorPresets;
 import frc.robot.commands.BaseSubsystemCommands.IntakeBackupCommand;
 import frc.robot.commands.BaseSubsystemCommands.IntakeCommand;
+import frc.robot.commands.BaseSubsystemCommands.ReverseIntake;
 import frc.robot.commands.BaseSubsystemCommands.ShooterCommand;
 import frc.robot.commands.BaseSubsystemCommands.ShooterEject;
 import frc.robot.commands.BaseSubsystemCommands.ShooterFlywheelCommand;
@@ -278,6 +279,10 @@ public class SubsystemManager extends SubsystemBase {
 
 	public Command makeManualIntakeEjectCommand() {
 		return new ManualIntakeEjectCommand(intake, transport, shooterPivot);
+	}
+
+	public Command makeReverseIntakeCommand() {
+		return new ReverseIntake(transport, shooter);
 	}
 	
 	public Command makeAutoIntakeCommand() {
